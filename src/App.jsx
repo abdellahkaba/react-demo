@@ -24,7 +24,13 @@ function App() {
     console.log("Bien !")
     useEffect(() => {
         const timer = setInterval(() => {
-            setSecondLeft(v => v <= 1 ? 0 : v - 1)
+            setSecondLeft(v => {
+                if(v <=1) {
+                    clearInterval(timer)
+                    return 0
+                }
+                return v - 1
+            })
         }, 1000)
         /**Nettoyer le precedent timer */
         return () => {
