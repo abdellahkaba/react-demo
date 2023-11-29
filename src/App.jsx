@@ -1,21 +1,22 @@
-import { useEffect, useRef, useState } from "react"
-import { Input } from "./components/forms/input"
 
+/**Exemple d'utilisation de hook personalisé */
+
+import { useState } from "react"
+
+function useToggle(initial = false) {
+    const [state, setState] = useState(initial)
+    const toggle = () => setState(v => !v)
+    return [state,toggle]
+}
 
 function App() {
-
-    const ref = useRef(null)
-    
-    console.log('Application', ref)
-    const [value,setValue] = useState('')
-    return <div ref={ref}>
-        <Input ref={ref}
-         label="prefix"
-         value={value}
-         onChange={setValue}
-         />
-         {value.length === 0 && <div ref={ref}>hello</div>}
+    /**Appel de la fonction hook personalisée */
+    const [checked, toggleCheck] = useToggle()
+    return <div className="text-center w-2 py-2">
+        <input type="checkbox" checked={checked} onChange={toggleCheck} />
+        { checked && 'Je suis coché'}
     </div>
+
 }
 
 export default App
