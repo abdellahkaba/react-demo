@@ -1,17 +1,14 @@
 import { useState } from "react";
 
-export function useIncrement(initial = 0) {
+export function useIncrement({base = 0, min = -Infinity, max = Infinity}) {
    
-    const [value,setvalue] = useState(initial)
-    /**Un tableau simple */
-    return [
-        value,
-        function increment() {
-            setvalue(v => v+1)
+    const [value,setvalue] = useState(base)
+    /**Un tableau d'objet */ 
+    return {
+            Compteur: value,
+            increment: () => setvalue(v => v < max ? v+1 : v),
+            desincrement: () => setvalue(v => v > min ? v-1 : v)
         }
-         ,
-        function desincrement() {
-            setvalue(v => v-1)
-        }
-    ]
+
+        
 }
